@@ -1,0 +1,8 @@
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+pytest
+deactivate
+
+
+allure generate ./allure-results -o ./allure-report --clean
