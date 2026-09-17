@@ -152,8 +152,14 @@ below) instead of being checked into source control.
 
 ## CI/CD with GitHub Actions
 
-The workflow in `.github/workflows/main.yml` currently runs **on manual trigger only** —
-click **Run workflow** on the *Actions* tab (or use `gh workflow run main.yml`) to start it.
+The workflow in `.github/workflows/main.yml` runs automatically:
+
+- **On every push to `main`**
+- **On every pull request**
+- **On a daily schedule** (midnight UTC), so regressions in the external API are caught
+  even without any code changes
+- **On demand**, via the **Run workflow** button on the *Actions* tab (or `gh workflow run main.yml`)
+
 On each run it:
 
 1. Checks out the repository.
@@ -162,7 +168,3 @@ On each run it:
 4. Runs `pytest -v tests/test_users.py --html=report.html`.
 5. Uploads `report.html` as a workflow artifact you can download from the run's summary
    page.
-
-The workflow file also includes commented-out triggers for automatic runs on every
-`push`, on `pull_request`, and on a daily `schedule` — uncomment whichever you want if
-you'd like the suite to run automatically instead of only on demand.
